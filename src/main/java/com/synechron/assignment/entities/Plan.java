@@ -19,16 +19,18 @@ public class Plan {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 
 	private String planName;
 	private String cityTier;
-	private long coverAmount;
-	private long premiumAmount;
+	private Float coverAmount;
+	private Float premiumAmount;
 	private String premiumPeriod;
-	private int claimSettlementRatio;
+	private Integer claimSettlementRatio;
 	private String features;
+	private String ageGroup;
 
+	
 	@OneToOne
 	@JoinColumn(name = "planTypeId")
 	private PlanType planType;
@@ -47,37 +49,20 @@ public class Plan {
 
 	}
 
-	// parameterized constructor
-	public Plan(String planName, String cityTier, long coverAmount, long premiumAmount, String premiumPeriod,
-			int claimSettlementRatio, String features, PlanType planType, PlanSubtype planSubtype,
-			List<Hospital> hospitals) {
-		super();
-		this.planName = planName;
-		this.cityTier = cityTier;
-		this.coverAmount = coverAmount;
-		this.premiumAmount = premiumAmount;
-		this.premiumPeriod = premiumPeriod;
-		this.claimSettlementRatio = claimSettlementRatio;
-		this.features = features;
-		this.planType = planType;
-		this.planSubtype = planSubtype;
-		this.hospitals = hospitals;
-	}
-
 	@Override
 	public String toString() {
 		return "Plan [id=" + id + ", planName=" + planName + ", cityTier=" + cityTier + ", coverAmount=" + coverAmount
 				+ ", premiumAmount=" + premiumAmount + ", premiumPeriod=" + premiumPeriod + ", claimSettlementRatio="
-				+ claimSettlementRatio + ", features=" + features + ", planType=" + planType + ", planSubtype="
-				+ planSubtype + ", hospitals=" + hospitals + "]";
+				+ claimSettlementRatio + ", features=" + features + ", ageRange=" + ageGroup + ", planType=" + planType
+				+ ", planSubtype=" + planSubtype + ", hospitals=" + hospitals + "]";
 	}
 
-	// getters and setters
-	public int getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -97,19 +82,19 @@ public class Plan {
 		this.cityTier = cityTier;
 	}
 
-	public long getCoverAmount() {
+	public Float getCoverAmount() {
 		return coverAmount;
 	}
 
-	public void setCoverAmount(long coverAmount) {
+	public void setCoverAmount(Float coverAmount) {
 		this.coverAmount = coverAmount;
 	}
 
-	public long getPremiumAmount() {
+	public Float getPremiumAmount() {
 		return premiumAmount;
 	}
 
-	public void setPremiumAmount(long premiumAmount) {
+	public void setPremiumAmount(Float premiumAmount) {
 		this.premiumAmount = premiumAmount;
 	}
 
@@ -121,11 +106,11 @@ public class Plan {
 		this.premiumPeriod = premiumPeriod;
 	}
 
-	public int getClaimSettlementRatio() {
+	public Integer getClaimSettlementRatio() {
 		return claimSettlementRatio;
 	}
 
-	public void setClaimSettlementRatio(int claimSettlementRatio) {
+	public void setClaimSettlementRatio(Integer claimSettlementRatio) {
 		this.claimSettlementRatio = claimSettlementRatio;
 	}
 
@@ -160,5 +145,14 @@ public class Plan {
 	public void setHospitals(List<Hospital> hospitals) {
 		this.hospitals = hospitals;
 	}
+	
+	public String getAgeRange() {
+		return ageGroup;
+	}
+
+	public void setAgeRange(String ageRange) {
+		this.ageGroup = ageRange;
+	}
+
 
 }

@@ -36,11 +36,20 @@ public class InsurancePlanController {
 		return plan;
 	}
 	
+	@GetMapping("/plans/{ageGroup}/{coverAmount}/{planType}")
+	public List<Plan> viewPlanByAgeAndCoverAndType(@PathVariable String ageGroup, @PathVariable Float coverAmount,@PathVariable String planType) {
+		 System.out.println("this is our function");
+		List<Plan> resultList = insurancePlanService.findByAgeGroupAndCoverAmountAndPlanType(ageGroup,coverAmount,planType);
+		return resultList;
+	}
+	
 	@PostMapping("/plans")
 	public void addPlan(@RequestBody Plan plan) {
 		
-		//we will set the id to 0 , in case someone sends the id also through json data
-		plan.setId(0);
+		//in case someone sends the id also through json data
+		if(plan.getId() != null) {
+			throw new IllegalArgumentException("Id can not be passed while adding new plans");
+		}
 		insurancePlanService.save(plan);
 	}
 	

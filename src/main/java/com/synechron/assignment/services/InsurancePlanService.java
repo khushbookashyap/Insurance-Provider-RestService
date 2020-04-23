@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.synechron.assignment.entities.Plan;
+import com.synechron.assignment.exceptions.PlanNotFoundException;
 import com.synechron.assignment.repositories.InsurancePlanRepository;
 
 @Service
@@ -31,7 +32,7 @@ public class InsurancePlanService {
 		}
 		else {
 			// we didn't find the employee
-			throw new RuntimeException("Did not find plan id - " + planId);
+			throw new PlanNotFoundException("There is no plan with id = " +planId);
 		}
 		return plan;
 	}
@@ -42,8 +43,24 @@ public class InsurancePlanService {
 	}
 
 	public void deleteById(int planId) {
-		insurancePlanRepository.deleteById(planId);
 		
+		Plan plan = findById(planId);
+		if(plan != null) {
+			insurancePlanRepository.deleteById(planId);
+		}
+		
+		
+	}
+
+	public List<Plan> findByAgeGroupAndCoverAmountAndPlanType(String ageGroup, Float coverAmount, String planType) {
+
+		List<Plan> planList =insurancePlanRepository.findByAgeGroupAndCoverAmountAndPlanType(ageGroup,coverAmount,planType);
+		
+		if(planList.isEmpty()) {
+			// we didn't find the employee
+			throw new PlanNotFoundException("No plan found with given parameters");
+		}
+		return planList;
 	}
 	
 	
